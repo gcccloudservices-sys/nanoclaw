@@ -202,8 +202,7 @@ Important: the full NanoClaw agent runtime is **not compatible** with Vercel ser
 
 ### What this Vercel version includes
 - Static UI served from `public/`
-- Serverless endpoint at `/api/health`
-- Node.js 20 runtime for API functions (configured in `vercel.json`)
+- Serverless endpoint at `/api/health` (Node runtime managed by Vercel project settings)
 
 ### Deploy steps
 1. Import this repository in Vercel.

@@ -1,10 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/public/index.html"
+    },
+    {
+      "source": "/styles.css",
+      "destination": "/public/styles.css"
+    }
+  ]
 }
