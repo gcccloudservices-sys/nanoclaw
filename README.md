@@ -190,6 +190,32 @@ Everything else (new capabilities, OS compatibility, hardware support, enhanceme
 
 This keeps the base system minimal and lets every user customize their installation without inheriting features they don't want.
 
+
+## Vercel Deployment
+
+You can deploy a lightweight NanoClaw **web companion** to Vercel (static UI + `/api/health`).
+
+Important: the full NanoClaw agent runtime is **not compatible** with Vercel serverless because it depends on:
+- Long-running background processing
+- Local container runtime (Docker/Apple Container)
+- Host filesystem mounts and local state
+
+### What this Vercel version includes
+- Static UI served from `public/`
+- Serverless endpoint at `/api/health` (Node runtime managed by Vercel project settings)
+
+### Deploy steps
+1. Import this repository in Vercel.
+2. Keep framework preset as **Other**.
+3. Do not set a custom Output Directory.
+4. Deploy.
+
+After deploy:
+- `GET /` -> web companion UI
+- `GET /api/health` -> JSON health metadata
+
+Use Vercel for status/UX endpoints only, and run the full NanoClaw runtime on a VM, bare metal, or another host with container support.
+
 ## Community
 
 Questions? Ideas? [Join the Discord](https://discord.gg/VDdww8qS42).
