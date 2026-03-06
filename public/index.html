@@ -3,42 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NanoClaw UI</title>
+    <title>NanoClaw on Vercel</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="page">
-      <section class="card">
+      <section class="card hero">
         <p class="badge">NanoClaw</p>
-        <h1>Container-first AI assistant</h1>
+        <h1>An AI assistant that runs agents in isolated containers</h1>
         <p class="subtitle">
-          NanoClaw is running. This UI confirms the Vercel deployment and provides quick access to
-          docs and setup resources.
+          Lightweight, understandable, and deeply customizable with Claude Code skills.
         </p>
-
         <div class="actions">
+          <a href="https://nanoclaw.dev" target="_blank" rel="noreferrer">nanoclaw.dev</a>
           <a href="https://github.com/gcccloudservices-sys/nanoclaw" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://github.com/gcccloudservices-sys/nanoclaw#quick-start" target="_blank" rel="noreferrer">Quick Start</a>
         </div>
-              <div class="status" aria-live="polite">
+
+        <div class="status" aria-live="polite">
           <span class="dot" id="status-dot"></span>
           <span id="status-text">Checking backend...</span>
         </div>
+        <p class="hint" id="mode-hint"></p>
+      </section>
+
+      <section class="card grid">
+        <article>
+          <h2>Why NanoClaw</h2>
+          <p>
+            Designed for people who want real OS-level isolation and a codebase small enough to
+            audit and modify.
+          </p>
+        </article>
+        <article>
+          <h2>What it supports</h2>
+          <ul>
+            <li>Multi-channel messaging</li>
+            <li>Per-group isolated context</li>
+            <li>Scheduled tasks</li>
+            <li>Agent swarms</li>
+          </ul>
+        </article>
+        <article>
+          <h2>Vercel mode</h2>
+          <p>
+            This deployment is a web companion (UI + health endpoint). The full runtime requires a
+            host with Docker or Apple Container.
+          </p>
+        </article>
       </section>
     </main>
-      <script>
+
+    <script>
       async function checkBackend() {
         const dot = document.getElementById('status-dot');
         const text = document.getElementById('status-text');
+        const hint = document.getElementById('mode-hint');
         try {
           const response = await fetch('/api/health', { cache: 'no-store' });
           if (!response.ok) throw new Error('HTTP ' + response.status);
           const data = await response.json();
           dot.classList.add('ok');
           text.textContent = `Backend online (${data.runtime})`;
+          hint.textContent = data.supportsAgents
+            ? 'Agent runtime is available in this deployment.'
+            : data.reason || 'This deployment is web companion only.';
         } catch (error) {
           dot.classList.add('err');
           text.textContent = 'Backend unavailable: ' + String(error.message || error);
+          hint.textContent = 'Check Vercel function logs for /api/health.';
         }
       }
       checkBackend();

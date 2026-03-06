@@ -12,8 +12,11 @@ export default function handler(_req: Req, res: Res): void {
   res.setHeader('Cache-Control', 'no-store');
   res.status(200).json({
     ok: true,
-    service: 'nanoclaw',
+    service: 'nanoclaw-web-companion',
     runtime: 'vercel-serverless',
+    supportsAgents: false,
+    reason:
+      'Core NanoClaw requires long-running process + container runtime (Docker/Apple Container), which is not available in Vercel serverless runtime.',
     timestamp: new Date().toISOString(),
   });
 }
