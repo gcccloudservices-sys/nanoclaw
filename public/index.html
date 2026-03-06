@@ -20,7 +20,28 @@
           <a href="https://github.com/gcccloudservices-sys/nanoclaw" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://github.com/gcccloudservices-sys/nanoclaw#quick-start" target="_blank" rel="noreferrer">Quick Start</a>
         </div>
+              <div class="status" aria-live="polite">
+          <span class="dot" id="status-dot"></span>
+          <span id="status-text">Checking backend...</span>
+        </div>
       </section>
     </main>
+      <script>
+      async function checkBackend() {
+        const dot = document.getElementById('status-dot');
+        const text = document.getElementById('status-text');
+        try {
+          const response = await fetch('/api/health', { cache: 'no-store' });
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          const data = await response.json();
+          dot.classList.add('ok');
+          text.textContent = `Backend online (${data.runtime})`;
+        } catch (error) {
+          dot.classList.add('err');
+          text.textContent = 'Backend unavailable: ' + String(error.message || error);
+        }
+      }
+      checkBackend();
+    </script>
   </body>
 </html>

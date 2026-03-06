@@ -98,3 +98,30 @@ h1 {
   outline: 0;
   box-shadow: 0 0 0 4px var(--ring);
 }
+
+.status {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #7a849f;
+  box-shadow: 0 0 0 4px rgba(122, 132, 159, 0.15);
+}
+
+.dot.ok {
+  background: #25d366;
+  box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.2);
+}
+
+.dot.err {
+  background: #ff5d5d;
+  box-shadow: 0 0 0 4px rgba(255, 93, 93, 0.2);
+}
